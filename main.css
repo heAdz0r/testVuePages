@@ -1,0 +1,10 @@
+.completed {
+	text-decoration: line-through;
+	opacity: 0.5;
+	font-size: 14px;
+}
+
+.inCompleted {
+	font-weight: bold;
+}
+
