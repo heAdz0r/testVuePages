@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>
+		Computed Props
+	</title>
+	<link rel="stylesheet" href="main.css">
+</head>
+<body>
+	<div id="root">
+		<h1>Задачи на {{d.getDate()}}.{{d.getMonth()}}.{{d.getFullYear()}}</h1>
+		<ul v-if='false'>
+			<li v-for='task in tasks'>{{task.description}} completed {{task.completed}} 
+			</li>
+		</ul>
+	
+		<h2>Incompleted tasks</h2>
+		<ul>
+			<li v-for='task in inCompletedTasks' v-bind:class='{inCompleted: ! isCompleted(task)}'>
+				{{task.description}}
+				<button @click='finishTask(task)'>V</button>
+				<button @click='undoTask(task)'>X</button>
+			</li>
+		</ul>
+		<h2>Complete tasks</h2>
+		<ul>
+			<li v-for='task in completedTasks' v-bind:class='{completed: isCompleted(task)}'>
+				{{task.description}}
+				<button @click='finishTask(task)'>V</button>
+				<button @click='undoTask(task)'>X</button>
+			</li>
+		</ul>
+
+		<div>
+			<input type="text" v-model='newTask'>
+			<button @click='addTask'>Add</button>
+		</div>
+	</div>
+	
+
+
+	<script src="https://unpkg.com/vue"></script>
+	<script>
+	var app = new Vue
+	(
+	{
+		el: '#root',
+		data:
+		{
+			newTask: '',
+			d: new Date(),
+			tasks: 	[]
+			
+		},
+		methods:
+		{
+			finishTask(task)
+			{
+				task.completed = true;
+			},
+			undoTask(task)
+			{
+				task.completed = false;
+			},
+			isCompleted(task)
+			{
+				return task.completed;
+			},
+			addTask()
+			{
+				this.tasks.push({description: this.newTask, completed: false});
+				this.newTask = '';
+			}
+		},
+		computed:
+		{
+			inCompletedTasks()
+			{
+
+				return this.tasks.filter(task => ! task.completed);
+			},
+
+			completedTasks()
+			{
+				return this.tasks.filter(task => task.completed);
+			}
+
+		}
+	}
+	)
+	</script>
+</body>
+</html>
