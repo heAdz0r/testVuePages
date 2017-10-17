@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div id="root">
-		<h1>Задачи на {{d.getDate()}}.{{d.getMonth()}}.{{d.getFullYear()}}</h1>
+		<h1>Задачи на {{dday()}}</h1>
 		<ul v-if='false'>
 			<li v-for='task in tasks'>{{task.description}} completed {{task.completed}} 
 			</li>
@@ -42,6 +42,7 @@
 
 	<script src="https://unpkg.com/vue"></script>
 	<script>
+	
 	var app = new Vue
 	(
 	{
@@ -50,6 +51,17 @@
 		{
 			newTask: '',
 			d: new Date(),
+			dday: function()
+			{
+				if (this.d.getMonth() < 10)
+				{
+					return this.d.getDate()+'.'+'0'+this.d.getMonth()+'.'+this.d.getFullYear();
+				}
+				else
+				{
+					return this.d.getDate()+'.'+this.d.getMonth()+'.'+this.d.getFullYear();
+				}
+			},
 			tasks: 	[]
 			
 		},
