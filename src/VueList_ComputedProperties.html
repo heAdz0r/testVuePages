@@ -5,38 +5,48 @@
 	<title>
 		Computed Props
 	</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
 	<link rel="stylesheet" href="main.css">
 </head>
 <body>
-	<div id="root">
-		<h1>Задачи на {{dday()}}</h1>
-		<ul v-if='false'>
-			<li v-for='task in tasks'>{{task.description}} completed {{task.completed}} 
-			</li>
-		</ul>
-	
-		<h2>Incompleted tasks</h2>
-		<ul>
-			<li v-for='task in inCompletedTasks' v-bind:class='{inCompleted: ! isCompleted(task)}'>
-				{{task.description}}
-				<button @click='finishTask(task)'>V</button>
-			</li>
-		</ul>
-		<h2>Complete tasks</h2>
-		<ul>
-			<li v-for='task in completedTasks' v-bind:class='{completed: isCompleted(task)}'>
-				{{task.description}}
-				<button @click='undoTask(task)'>X</button>
+	<div id='root'>
+		<ul v-if='false' class="list-group">
+			<li v-for='task in tasks' class="list-group-item">{{task.description}} completed {{task.completed}} 
 			</li>
 		</ul>
 
+		<div class="card border-info mb-3" style="max-width: 60rem;">
+  			<div class="card-header">Задачи на {{dday()}}</div>
+  				<div class="card-body text-info">
+   					<h3 class="card-title">Незавершенные задачи
+						<span class="badge badge-secondary"> {{inCompletedTasks.length}} </span>
+   					</h3>
+					<ul class="list-group">
+						<li v-for='task in inCompletedTasks' v-bind:class='{inCompleted: ! isCompleted(task)}' class="list-group-item card-text">
+						{{task.description}}
+						<button type="button" class="btn btn-success" @click='finishTask(task)'> V </button>
+						</li>
+					</ul>
+  				</div>
+  				<div class="card-body text-info">
+   					<h3 class="card-title">Завершенные задачи
+						<span class="badge badge-secondary"> {{completedTasks.length}} </span>
+   					</h3>
+   					<ul class="list-group">
+						<li v-for='task in completedTasks' v-bind:class='{completed: isCompleted(task)}' class="list-group-item">
+						{{task.description}}
+						<button type="button" class="btn btn-danger" @click='undoTask(task)'> X </button>
+						</li>
+					</ul>
+   				</div>
+   		<hr>
 		<div>
-			<input type="text" v-model='newTask'>
-			<button @click='addTask'>Add</button>
+			<input type="text" class="form-control" placeholder="Input task" aria-describedby="basic-addon1" v-model='newTask'>
+			<button type="button" class="btn btn-primary" @click='addTask'>Add Task</button>
+		</div>
 		</div>
 	</div>
-	
-
 
 	<script src="https://unpkg.com/vue"></script>
 	<script>
@@ -87,7 +97,6 @@
 		{
 			inCompletedTasks()
 			{
-
 				return this.tasks.filter(task => ! task.completed);
 			},
 
@@ -95,7 +104,6 @@
 			{
 				return this.tasks.filter(task => task.completed);
 			}
-
 		}
 	}
 	)
