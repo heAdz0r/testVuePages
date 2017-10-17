@@ -20,14 +20,12 @@
 			<li v-for='task in inCompletedTasks' v-bind:class='{inCompleted: ! isCompleted(task)}'>
 				{{task.description}}
 				<button @click='finishTask(task)'>V</button>
-				<button @click='undoTask(task)'>X</button>
 			</li>
 		</ul>
 		<h2>Complete tasks</h2>
 		<ul>
 			<li v-for='task in completedTasks' v-bind:class='{completed: isCompleted(task)}'>
 				{{task.description}}
-				<button @click='finishTask(task)'>V</button>
 				<button @click='undoTask(task)'>X</button>
 			</li>
 		</ul>
