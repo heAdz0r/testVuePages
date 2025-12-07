@@ -1,1 +1,3 @@
 # testVuePages
+
+Verified MVP functionality.
